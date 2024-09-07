@@ -1,0 +1,12 @@
+def f(x):
+    return 2*x**3-2*x-5
+def df(x):
+    return 6*x**2-2
+a=int(input("initial guess:"))
+n=int(input("number of iterations:"))
+k=1
+while(k<=n):
+    r=a-f(a)/df(a)
+    print("root=",r,"at iterations",k)
+    k=k+1
+    a=r
