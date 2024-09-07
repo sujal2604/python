@@ -1,0 +1,45 @@
+import random
+def create_deck(include_face_cards, num_cards):
+    ranks = ["A", "J", "Q", "K", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
+    suits = ["Hearts", "Diamonds", "Clubs", "Spades"]
+    max_cards = min(num_cards, 52)  # Ensure the number of cards is between    1 and 52
+    deck = []
+    for rank in ranks:
+        # Check if face cards should be included or if the rank is not a face card
+        if include_face_cards or rank not in ["K", "Q", "J"]:
+            for suit in suits:
+                # Add card to the deck
+                deck.append((rank, suit))
+
+    # Limit the deck size to the specified number of cards
+    random.shuffle(deck)
+    limited_deck = deck[:max_cards]
+
+    return limited_deck
+
+
+def display_deck(deck):
+    print("Shuffled Deck:")
+    for card in deck:
+        print(f"{card[0]} of {card[1]}")
+
+
+def get_user_input():
+    include_face_cards = (
+        input("Do you want to include King, Queen, and Jack? (yes/no): ").lower()
+        == "yes"
+    )
+    num_cards = int(input("How many cards do you want in the deck (1-52)? "))
+    return include_face_cards, num_cards
+
+
+def main():
+    include_face_cards, num_cards = get_user_input()
+    shuffled_deck = create_deck(include_face_cards, num_cards)
+    display_deck(shuffled_deck)
+
+
+
+if __name__ == "_main_":
+    main()
+main()
