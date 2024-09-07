@@ -1,0 +1,24 @@
+import numpy as np
+
+A = np.array([[1, -1, 4],
+              [1, 4, -2],
+              [1, 4, 2],
+              [1, -1, 0]],dtype=float)
+m, n = A.shape
+Q = np.zeros((m, n))
+R = np.zeros((n, n))
+
+for j in range(n):
+    v = A[:, j]
+    for i in range(j):
+        R[i, j] = np.dot(Q[:, i], A[:, j])
+        v -= R[i, j] * Q[:, i]
+    R[j, j] = np.linalg.norm(v)
+    Q[:, j] = v / R[j, j]
+
+
+
+print("Q:")
+print(Q)
+print("R:")
+print(R)
