@@ -1,0 +1,31 @@
+import numpy as np
+r = int(input('Enter number of coefficients: '))
+A = np.zeros((r, r))
+for i in range(r):
+    for j in range(r):
+        A[i, j] = float(input(f'Enter {j+1} coefficient of {i+1} equation: '))
+b = np.zeros(r)
+for i in range(r):
+    b[i] = float(input('Enter RHS value: '))
+
+Ab = np.column_stack((A, b))
+print(Ab)
+
+
+for i in range(r):
+    Ab[i, :] = Ab[i, :] / Ab[i, i]
+    if i != r - 1:
+        for j in range(i + 1, r):
+            Ab[j, :] = Ab[j, :] - Ab[j, i] * Ab[i, :]
+
+print('Row Echelon Form of the augmented matrix:')
+print(Ab)
+
+x = np.zeros(r)
+x[-1] = Ab[-1, -1]
+for k in range(r-2, -1, -1):
+    x[k] = Ab[k, -1] - np.sum(Ab[k, :-1] * x)
+
+print('Solution vector:')
+print(x)
+
