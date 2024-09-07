@@ -1,0 +1,32 @@
+import numpy as np
+
+def power_method(matrix, max_iterations=100, tolerance=1e-6):
+    
+    # Initialize a random vector as an initial guess for the eigenvector
+    n = matrix.shape[0]
+    x = np.random.rand(n)
+    
+    for iterations in range(1, max_iterations + 1):
+        # Perform matrix-vector multiplication
+        y = np.dot(matrix, x)
+
+        # Compute the eigenvalue as the ratio of the maximum elements
+        eigenvalue = np.max(np.abs(y))
+        
+        # Normalize the eigenvector
+        x = y / eigenvalue
+
+        # Check for convergence
+        if np.linalg.norm(np.dot(matrix, x) - eigenvalue * x) < tolerance:
+            break
+    
+    return eigenvalue, x, iterations
+
+# Example usage:
+A = np.array([[2, -1, 0], [-1, 2, -1], [0, -1, 2]])
+
+dominant_eigenvalue, dominant_eigenvector, num_iterations = power_method(A)
+
+print("Dominant Eigenvalue:", dominant_eigenvalue)
+print("Corresponding Eigenvector:", dominant_eigenvector)
+print("Number of Iterations:", num_iterations)
