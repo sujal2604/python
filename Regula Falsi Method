@@ -1,0 +1,26 @@
+def f(x):
+    return x**3-2*x-5
+def regula(a,b,n):
+    i=1
+    condition = True
+    while condition:
+        x=(a*f(b)-b*f(a))/(f(b)-f(a))
+        if f(x)<0:
+            a=x
+        else:
+            b=x
+        print("iteration",i,"x=",x,"f(x)=",f(x))
+        if i==n:
+            condition = False
+        else:
+            condition = True
+            i=i+1
+    print(x)
+
+a=float(input("first approx:"))
+b=float(input("second approx:"))
+n=int(input("number of iterations:"))
+if f(a)*f(b)>0:
+    print("try again with different values")
+else:
+    regula(a,b,n)
